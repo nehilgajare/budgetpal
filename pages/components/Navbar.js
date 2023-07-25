@@ -1,7 +1,7 @@
 export default function Navbar() {
   return (
     <div>
-      <nav className="bg-slate-800">
+      <nav className="bg-slate-900">
         <div className=" max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-20 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -58,7 +58,7 @@ export default function Navbar() {
 
                   <a
                     href="#"
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-3 text-sm font-medium"
+                    className="text-gray-300 hover:bg-gray-900 hover:text-white rounded-md px-3 py-3 text-sm font-medium"
                   >
                     Team
                   </a>
@@ -84,20 +84,6 @@ export default function Navbar() {
               className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-3 text-base font-medium"
             >
               Team
-            </a>
-
-            <a
-              href="#"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-3 text-base font-medium"
-            >
-              Projects
-            </a>
-
-            <a
-              href="#"
-              className="text-gray-300 hover:bg-gray-700 hover:text-white block rounded-md px-3 py-3 text-base font-medium"
-            >
-              Calendar
             </a>
           </div>
         </div>

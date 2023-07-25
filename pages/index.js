@@ -1,23 +1,62 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Navbar from "./components/Navbar";
+import { useState } from "react";
+import Axios from "axios";
+import cors from "cors";
+import { redirect } from "next/dist/server/api-utils";
+import Error from "./components/Error";
 
 export default function Home() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [modalShow, setModalShow] = useState(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    myHeaders.append(
+      "Cookie",
+      "connect.sid=s%3AqlW8k0RPDWH8NXAS4T0eTToHm36O_xoe.Q7DERgjMRzrntK9AOHOwN9wenPAMdKtmsw7W%2FDFMAUk"
+    );
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("username", username);
+    urlencoded.append("password", password);
+
+    var requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: "follow",
+    };
+
+    fetch("https://api-budgetpal.onrender.com/login", requestOptions)
+      .then((response) => {
+        setModalShow(false);
+      })
+      .then((result) => console.log(result))
+      .catch((error) => {
+        setModalShow(true);
+        setError(error);
+      });
+  };
   return (
     <>
-      <div className="bg-light">
+      <div className="bg-backg">
         <Navbar />
         <div className="flex mt-24  pb-24 ">
           <div className="flex-initial m-auto w-35vh h-40vh ">
-            <div className="container shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(45,78,255,0.15)] float-left py-12 px-12 my-auto rounded-lg bg-slate-200">
+            <div className="container opacity-95 py-12 px-12 my-auto rounded-lg bg-slate-200">
               <div className="text-center">
                 <h1 className="text-3xl font-bold text-gray-800">Budget Pal</h1>
                 <p className="text-gray-500">Log in or create an account</p>
                 <br />
               </div>
 
-              <div className="bg-white container shadow-md rounded px-8 py-8 mb-2 ">
-                <form>
+              <div className="bg-white  container shadow-md rounded px-8 py-8 mb-2 ">
+                <form onSubmit={handleSubmit}>
                   <div className="mb-4">
                     <label
                       className="block text-gray-700 font-bold mb-2"
@@ -28,8 +67,9 @@ export default function Home() {
                     <input
                       className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       id="email"
-                      type="email"
-                      placeholder="Email"
+                      type="text"
+                      placeholder="username"
+                      onChange={(e) => setUsername(e.target.value)}
                     />
                   </div>
 
@@ -44,14 +84,15 @@ export default function Home() {
                       className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                       id="password"
                       type="password"
-                      placeholder="Password"
+                      placeholder="password"
+                      onChange={(e) => setPassword(e.target.value)}
                     />
                   </div>
 
                   <div className="flex items-center justify-between">
                     <button
-                      className="bg-blue-500 hover:bg-blue-700 ml-2 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                      type="button"
+                      className="bg-blue-500 ml-14 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                      type="submit"
                     >
                       Sign In
                     </button>
