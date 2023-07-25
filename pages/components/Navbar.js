@@ -1,15 +1,22 @@
+import React, { useState } from 'react';
 export default function Navbar() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen((prevState) => !prevState);
+  };
   return (
     <div>
       <nav className="bg-slate-900">
         <div className=" max-w-7xl px-2 sm:px-6 lg:px-8">
-          <div className="relative flex h-20 items-center justify-between">
+          <div className="relative flex lg:h-18 md:h-16 h-14 sm:items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
               <button
                 type="button"
                 className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
                 aria-controls="mobile-menu"
-                aria-expanded="false"
+                aria-expanded={isMobileMenuOpen ? 'true' : 'false'}
+                onClick={toggleMobileMenu}
               >
                 <span className="sr-only">Open main menu</span>
 
@@ -44,13 +51,13 @@ export default function Navbar() {
                 </svg>
               </button>
             </div>
-            <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-              <h1 className="text-white mt-2 text-xl">Budget Pal</h1>
-              <div className="hidden sm:ml-6 sm:block">
-                <div className="flex space-x-4">
+            <div className="flex flex-1 py-6 items-center justify-center sm:items-stretch sm:justify-start">
+              <h1 className="text-white mt-2 lg:text-2xl text-lg  px-4 pr-8">Budget Pal</h1>
+              <div className="hidden sm:flex items-center space-x-1 ">
+                <div className="flex space-x-6">
                   <a
                     href="#"
-                    className="bg-gray-900 text-white rounded-md px-3 py-3 text-sm font-medium"
+                    className="text-gray-300 hover:bg-gray-900 hover:text-white rounded-md px-3 py-3 text-lg font-medium"
                     aria-current="page"
                   >
                     Dashboard
@@ -58,7 +65,7 @@ export default function Navbar() {
 
                   <a
                     href="#"
-                    className="text-gray-300 hover:bg-gray-900 hover:text-white rounded-md px-3 py-3 text-sm font-medium"
+                    className="text-gray-300 hover:bg-gray-900 hover:text-white rounded-md px-3 py-3 text-lg font-medium"
                   >
                     Team
                   </a>
@@ -69,8 +76,8 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="sm:hidden" id="mobile-menu">
-          <div className="space-y-1 px-2 pb-3 pt-2">
+        <div className={`sm:hidden ${isMobileMenuOpen ? 'block' : 'hidden'}`} id="mobile-menu">
+          <div className="px-2 pb-3 pt-2">
             <a
               href="#"
               className="bg-gray-900 text-white block rounded-md px-3 py-3 text-base font-medium"

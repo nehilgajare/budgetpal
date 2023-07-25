@@ -6,7 +6,9 @@ import Axios from "axios";
 import cors from "cors";
 import { redirect } from "next/dist/server/api-utils";
 import Error from "./components/Error";
-
+import backgroundImage from '../public/backg.jpeg';
+import Link from "next/link";
+ 
 export default function Home() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -44,18 +46,21 @@ export default function Home() {
   };
   return (
     <>
-      <div className="bg-backg">
+      <div
+        className="bg-auto bg-backg m-auto h-screen"
+        style={{ backgroundImage: `url(${backgroundImage})` }}
+      >
         <Navbar />
-        <div className="flex mt-24  pb-24 ">
-          <div className="flex-initial m-auto w-35vh h-40vh ">
-            <div className="container opacity-95 py-12 px-12 my-auto rounded-lg bg-slate-200">
+        <div className="flex my-auto mt-12 pb-24 ">
+          <div className="flex m-auto w-35vh h-10vh ">
+            <div className="container opacity-95 lg:py-10 lg:px-12  px-4 py-6 my-auto rounded-lg bg-slate-200">
               <div className="text-center">
-                <h1 className="text-3xl font-bold text-gray-800">Budget Pal</h1>
+                <h1 className="lg:text-3xl md:text-2xl text-xl font-bold text-gray-800">Budget Pal</h1>
                 <p className="text-gray-500">Log in or create an account</p>
                 <br />
               </div>
 
-              <div className="bg-white  container shadow-md rounded px-8 py-8 mb-2 ">
+              <div className="bg-white  container shadow-md rounded lg:px-8 lg:py-8 md:px-4 md:py-6 px-4 py-4  mb-2 ">
                 <form onSubmit={handleSubmit}>
                   <div className="mb-4">
                     <label
@@ -91,7 +96,7 @@ export default function Home() {
 
                   <div className="flex items-center justify-between">
                     <button
-                      className="bg-blue-500 ml-14 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                      className="bg-blue-500 ml-14 hover:bg-blue-700 text-white font-bold lg:py-2 lg:px-4 py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                       type="submit"
                     >
                       Sign In
@@ -101,7 +106,7 @@ export default function Home() {
                 <hr className="my-4" />
 
                 <p className="text-center text-gray-500 text-sm">
-                  Don t have an account? <strong>Sign Up!</strong>
+                  Don t have an account? <Link href="/signup">Sign Up!</Link>
                 </p>
               </div>
             </div>
